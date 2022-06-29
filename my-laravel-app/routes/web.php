@@ -35,7 +35,6 @@ Route::get("/users/{nome}", function ($nome) {
 Route::get("/users", [UserController::class, "index"])->name("users.index");
 Route::get("/users/{id}", [UserController::class, "show"])->name("users.show");
 
-
 // Via CEP Web Service
 Route::get("/viacep", [ViaCepController::class, "index"])->name("viacep.index");
 Route::post("/viacep", [ViaCepController::class, "index"])->name("viacep.index.post");
