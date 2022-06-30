@@ -3,7 +3,15 @@
 @section("body")
 <div class="container">
     <h1>Editar {{$user->name}}</h1>
-
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <form action="{{ route('users.update', $user->id) }}" method="POST">
         @method("PUT")
         @csrf
