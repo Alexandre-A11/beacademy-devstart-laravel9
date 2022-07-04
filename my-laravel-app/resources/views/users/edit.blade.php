@@ -12,7 +12,7 @@
         </ul>
     </div>
     @endif
-    <form action="{{ route('users.update', $user->id) }}" method="POST">
+    <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
         @method("PUT")
         @csrf
         <div class="form-group">
@@ -27,6 +27,12 @@
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Senha">
         </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Selecione uma imagem</label>
+            <input type="file" class="form-control form-control-sm" id="image" name="image" />
+        </div>
+
         <button type="submit" class="btn btn-primary">Atualizar</button>
     </form>
 </div>

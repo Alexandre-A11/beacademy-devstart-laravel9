@@ -15,7 +15,7 @@ class UserController extends Controller {
         //     "name" => ["John Doe", "Jane Doe"]
         // ];
 
-        $users = User::all();
+        $users = User::paginate(5);
         // dd($users);
         return view("users.index", compact("users"));
     }
@@ -49,6 +49,14 @@ class UserController extends Controller {
         // # Método 2:
         $data = $request->all();
         $data["password"] = bcrypt($request->password);
+
+        if ($request->image) {
+            // $file = $request["image"];
+            // $path = $file->store("profile", "public");
+            // $data["image"] = $path;
+            $data["image"] = $request->file("image")->store("profile", "public");
+        }
+
 
         $this->model->create($data);
 
