@@ -10,6 +10,20 @@
 </head>
 
 <body>
+    <div class="container w-75 p-3">
+        <div class="navbar navbar-expand-lg navbar-dark-bg-dark">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/users">Usuários</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('posts.index') }}">Posts</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     @yield("body")
 </body>
 

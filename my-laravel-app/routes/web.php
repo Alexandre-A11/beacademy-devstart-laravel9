@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     UserController,
-    ViaCepController
+    ViaCepController,
+    PostController
 };
 
 
@@ -31,6 +32,9 @@ Route::get("/users/{nome}", function ($nome) {
     echo $nome;
 });
 */
+
+Route::get("/posts", [PostController::class, "index"])->name("posts.index");
+Route::get("/users/{id}/posts", [PostController::class, "show"])->name("posts.show");
 
 Route::post('/user', [UserController::class, 'store'])->name('users.store');
 Route::get("/users", [UserController::class, "index"])->name("users.index");

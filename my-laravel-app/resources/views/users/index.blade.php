@@ -13,6 +13,7 @@
                 <th scope="col">Foto</th>
                 <th scope="col">Nome</th>
                 <th scope="col">E-mail</th>
+                <th scope="col">Postagens</th>
                 <th scope="col">Cadastrado em</th>
                 <th scope="col">Ações</th>
             </tr>
@@ -27,6 +28,7 @@
                 <th><img src="{{ asset('storage/profile/avatar.jpg') }}" width="50px" height="50px" class="rounded-circle"></th>
                 @endif
                 <td>{{$user->name}}</td>
+                <td><a href="{{route('posts.show', $user->id)}}" class="btn btn-outline-dark">Postagens - {{$user->posts->count()}}</a></td>
                 <td>{{$user->email}}</td>
                 <td>{{date("d/m/Y | H:i", strtotime($user->created_at))}}</td>
                 <td><a href="{{route('users.show', $user->id)}}" class="btn btn-primary text-white">Visualizar</a></td>
