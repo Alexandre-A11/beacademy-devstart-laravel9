@@ -11,20 +11,57 @@
 
 <body>
     <div class="container w-75 p-3">
-        <div class="navbar navbar-expand-lg navbar-dark-bg-dark">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/users">Usuários</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('posts.index') }}">Posts</a>
-                    </li>
-                </ul>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-10">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/users">Usuários</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('posts.index') }}">Posts</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-2">
+                            <ul class="navbar-nav mr-auto">
+                                @if(Auth::user())
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#">{{ Auth::user()->name }}</a>
+                                </li>
+                                @if(Auth::user()->is_admin == 1)
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="{{ route('admin.index') }}">Dashboard</a>
+                                </li>
+                                @endif
+                                <li class="nav-item">
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+
+                                        <x-dropdown-link class="nav-link text-white" :href="route('logout')" onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                            {{ __('Sair') }}
+                                        </x-dropdown-link>
+                                    </form>
+                                </li>
+                                @else
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#">Entrar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#">Cadastrar</a>
+                                </li>
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </nav>
+        @yield("body")
     </div>
-    @yield("body")
 </body>
 
 </html>

@@ -11,12 +11,16 @@ class UserController extends Controller {
     public function __construct(User $user) {
         $this->model = $user;
     }
-    public function index() {
+    public function index(Request $request) {
         // $users = [
         //     "name" => ["John Doe", "Jane Doe"]
         // ];
 
-        $users = User::paginate(5);
+        $users = $this->model->getUsers(
+            $request->search ?? ''
+        );
+
+        // $users = User::paginate(5);
         // dd($users);
 
 
@@ -102,5 +106,9 @@ class UserController extends Controller {
         }
         $user->delete();
         return redirect()->route("users.index");
+    }
+
+    public function admin() {
+        return view("admin.index");
     }
 }
