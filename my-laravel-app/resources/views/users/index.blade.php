@@ -5,6 +5,27 @@
 <div class="container">
     <h1>Listagem de Usuários</h1>
 
+    @if (session()->has("success"))
+    <div class="alert alert-success">
+        {{ session()->get("success") }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+    @if (session()->has("update"))
+    <div class="alert alert-success">
+        {{ session()->get("update") }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+    @if (session()->has("delete"))
+    <div class="alert alert-danger">
+        {{ session()->get("delete") }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
     <div class="container">
         <div class="row">
             <div class="col-sm mt-2-mb-5">
@@ -13,7 +34,8 @@
             <div class="col-sm mt-2-mb-5">
                 <form action="{{ route('users.index')}}" method="GET">
                     <div class="input-group">
-                        <input type="text" name="search" id="search" class="form-control control" placeholder="Pesquisar...">
+                        <input type="text" name="search" id="search" class="form-control control"
+                            placeholder="Pesquisar...">
                         <button type="submit" class="btn btn-outline-primary">Pesquisar</button>
                     </div>
                 </form>
@@ -38,12 +60,15 @@
             <tr>
                 <th scope="row">{{$user->id}}</th>
                 @if ($user->image)
-                <th><img src="{{ asset('storage/'.$user->image) }}" width="50px" height="50px" class="rounded-circle"></th>
+                <th><img src="{{ asset('storage/'.$user->image) }}" width="50px" height="50px" class="rounded-circle">
+                </th>
                 @else
-                <th><img src="{{ asset('storage/profile/avatar.jpg') }}" width="50px" height="50px" class="rounded-circle"></th>
+                <th><img src="{{ asset('storage/profile/avatar.jpg') }}" width="50px" height="50px"
+                        class="rounded-circle"></th>
                 @endif
                 <td>{{$user->name}}</td>
-                <td><a href="{{route('posts.show', $user->id)}}" class="btn btn-outline-dark">Postagens - {{$user->posts->count()}}</a></td>
+                <td><a href="{{route('posts.show', $user->id)}}" class="btn btn-outline-dark">Postagens -
+                        {{$user->posts->count()}}</a></td>
                 <td>{{$user->email}}</td>
                 <td>{{date("d/m/Y | H:i", strtotime($user->created_at))}}</td>
                 <td><a href="{{route('users.show', $user->id)}}" class="btn btn-primary text-white">Visualizar</a></td>

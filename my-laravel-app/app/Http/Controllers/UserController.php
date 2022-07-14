@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\UserControllerException;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUpdateUserFormRequest;
@@ -36,7 +37,7 @@ class UserController extends Controller {
         // $user = User::where("id", $id)->first();
         // $user = User::findOrFail($id);
         if (!$user = User::find($id)) {
-            abort(404);
+            // abort(404);
             // return redirect()->route("users.index");
         }
 
@@ -45,7 +46,11 @@ class UserController extends Controller {
         // return $team;
 
         // return $user;
-        return view("users.show", compact("user"));
+        if ($user){
+            return view("users.show", compact("user"));
+        }else {
+            throw new UserControllerException('User não encontrado.');
+        }
     }
 
     public function create() {
@@ -74,7 +79,9 @@ class UserController extends Controller {
         $this->model->create($data);
 
 
-        return redirect()->route("users.index");
+        // $request->session()->flash("success", "Usuário criado com sucesso!");
+        // return redirect()->route("users.index");
+        return redirect()->route("users.index")->with("success", "Usuário criado com sucesso!");
     }
 
     public function edit($id) {
@@ -95,9 +102,12 @@ class UserController extends Controller {
             $data["password"] = bcrypt($request->password);
         }
 
+        $data['is_admin'] = $request->is_admin ? 1:0;
+
         $user->update($data);
 
-        return redirect()->route("users.index");
+        // return redirect()->route("users.index");
+        return redirect()->route("users.index")->with("update", "Usuário atualizado com sucesso!");
     }
 
     public function destroy($id) {
@@ -105,7 +115,9 @@ class UserController extends Controller {
             abort(404);
         }
         $user->delete();
-        return redirect()->route("users.index");
+
+        
+        return redirect()->route("users.index")->with("delete", "Usuário excluído com sucesso!");
     }
 
     public function admin() {

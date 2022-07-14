@@ -21,7 +21,8 @@
         </div>
         <div class="form-group">
             <label for="email">E-Mail</label>
-            <input value="{{ $user->email }}" type="email" class="form-control" id="email" name="email" placeholder="E-Mail">
+            <input value="{{ $user->email }}" type="email" class="form-control" id="email" name="email"
+                placeholder="E-Mail">
         </div>
         <div class="form-group">
             <label for="password">Password</label>
@@ -31,6 +32,11 @@
         <div class="mb-3">
             <label for="image" class="form-label">Selecione uma imagem</label>
             <input type="file" class="form-control form-control-sm" id="image" name="image" />
+        </div>
+
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="admin" name="admin" {{ $user->admin ? "checked" : "" }}>
+            <label class="form-check-label" for="admin">Administrador</label>
         </div>
 
         <button type="submit" class="btn btn-primary">Atualizar</button>
